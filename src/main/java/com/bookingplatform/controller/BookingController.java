@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/booking")
 @RequiredArgsConstructor
-public class ClientController {
+public class BookingController {
     private final BookingService bookingService;
 
     @GetMapping

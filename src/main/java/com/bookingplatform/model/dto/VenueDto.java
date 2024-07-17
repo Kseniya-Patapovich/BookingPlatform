@@ -11,5 +11,4 @@ public class VenueDto {
     private String address;
     private BigDecimal price;
     private String phone;
-    private List<Long> bookingList;
 }

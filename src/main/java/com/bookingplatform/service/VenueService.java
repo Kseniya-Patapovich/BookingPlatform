@@ -35,8 +35,6 @@ public class VenueService {
         venue.setAddress(venueDto.getAddress());
         venue.setPrice(venueDto.getPrice());
         venue.setPhone(venueDto.getPhone());
-        List<Booking> bookings = bookingRepository.findAllById(venueDto.getBookingList());
-        venue.setBookings(bookings);
         venueRepository.save(venue);
         return venue.getId();
     }
@@ -48,7 +46,13 @@ public class VenueService {
         venue.setAddress(venueDto.getAddress());
         venue.setPhone(venueDto.getPhone());
         venue.setPrice(venueDto.getPrice());
-        List<Booking> bookings = bookingRepository.findAllById(venueDto.getBookingList());
+        venueRepository.save(venue);
+    }
+
+    @Transactional
+    public void updateBookingList(Long id, List<Long> bookingsId) {
+        Venue venue = getVenueById(id);
+        List<Booking> bookings = bookingRepository.findAllById(bookingsId);
         venue.setBookings(bookings);
         venueRepository.save(venue);
     }

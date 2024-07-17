@@ -31,6 +31,6 @@ public class Venue {
     @Column
     private String phone;
 
-    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "venue", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> bookings;
 }

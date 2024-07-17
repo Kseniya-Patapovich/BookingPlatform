@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -36,6 +37,12 @@ public class BookingService {
     public Long createBooking(BookingDto bookingDto) {
         Booking client = new Booking();
         Venue venue = getVenue(bookingDto.getVenueId());
+        if (bookingDto.getStartDate().isBefore(LocalDate.now())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Start date cannot be in past!");
+        }
+        if (bookingDto.getEndDate().isBefore(LocalDate.now())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "End date cannot be in past!");
+        }
         client.setName(bookingDto.getName());
         client.setStartDate(bookingDto.getStartDate());
         client.setEndDate(bookingDto.getEndDate());
@@ -48,9 +55,15 @@ public class BookingService {
     public void updateBooking(Long id, BookingDto bookingDto) {
         Booking booking = getBookingById(id);
         Venue venue = getVenue(bookingDto.getVenueId());
-        booking.setName(bookingDto.getName());
+        if (bookingDto.getStartDate().isBefore(LocalDate.now())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Start date cannot be in past!");
+        }
+        if (bookingDto.getEndDate().isBefore(LocalDate.now())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "End date cannot be in past!");
+        }
         booking.setStartDate(bookingDto.getStartDate());
         booking.setEndDate(bookingDto.getEndDate());
+        booking.setName(bookingDto.getName());
         booking.setVenue(venue);
         bookingRepository.save(booking);
     }

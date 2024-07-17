@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.FutureOrPresent;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -22,12 +23,14 @@ public class Booking {
     private String name;
 
     @Column(nullable = false)
+    @FutureOrPresent
     private LocalDate startDate;
 
     @Column(nullable = false)
+    @FutureOrPresent
     private LocalDate endDate;
 
     @ManyToOne
-    @JoinColumn(name = "property_id")
+    @JoinColumn(name = "venue_id")
     private Venue venue;
 }
