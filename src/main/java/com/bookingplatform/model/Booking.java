@@ -7,11 +7,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Data;
 
 import java.time.LocalDate;
 
-@Entity(name = "clients")
-public class Client {
+@Data
+@Entity(name = "booking")
+public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,5 +29,5 @@ public class Client {
 
     @ManyToOne
     @JoinColumn(name = "property_id")
-    private Property property;
+    private Venue venue;
 }

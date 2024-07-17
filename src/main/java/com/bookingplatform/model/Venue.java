@@ -13,8 +13,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Data
-@Entity(name = "properties")
-public class Property {
+@Entity(name = "venues")
+public class Venue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,5 +32,5 @@ public class Property {
     private String phone;
 
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Client> clients;
+    private List<Booking> bookings;
 }
