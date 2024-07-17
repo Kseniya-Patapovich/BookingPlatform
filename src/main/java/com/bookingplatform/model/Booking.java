@@ -1,5 +1,10 @@
 package com.bookingplatform.model;
 
+import com.bookingplatform.settings.BookingDeserializer;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,5 +37,9 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "venue_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonDeserialize(using = BookingDeserializer.class)
     private Venue venue;
 }

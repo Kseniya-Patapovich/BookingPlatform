@@ -30,7 +30,11 @@ public class BookingService {
     }
 
     public List<Booking> getAllByVenueId(Long id) {
-        return bookingRepository.findAllByVenueId(id);
+        List<Booking> bookings = bookingRepository.findAllByVenueId(id);
+        if (bookings.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Venue doesn't have any bookings!");
+        }
+        return bookings;
     }
 
     @Transactional
@@ -41,7 +45,10 @@ public class BookingService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Start date cannot be in past!");
         }
         if (bookingDto.getEndDate().isBefore(LocalDate.now())) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "End date cannot be in past!");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "End date cannot be in past!");
+        }
+        if (bookingDto.getEndDate().isBefore(bookingDto.getStartDate())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "End date cannot be before start date!");
         }
         client.setName(bookingDto.getName());
         client.setStartDate(bookingDto.getStartDate());
@@ -56,10 +63,13 @@ public class BookingService {
         Booking booking = getBookingById(id);
         Venue venue = getVenue(bookingDto.getVenueId());
         if (bookingDto.getStartDate().isBefore(LocalDate.now())) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Start date cannot be in past!");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Start date cannot be in past!");
         }
         if (bookingDto.getEndDate().isBefore(LocalDate.now())) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "End date cannot be in past!");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "End date cannot be in past!");
+        }
+        if (bookingDto.getEndDate().isBefore(bookingDto.getStartDate())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "End date cannot be before start date!");
         }
         booking.setStartDate(bookingDto.getStartDate());
         booking.setEndDate(bookingDto.getEndDate());
