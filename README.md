@@ -14,11 +14,12 @@ An event booking management system in which you can manage event venues  and boo
 1. Create new venue.
 
   To create a new venue, you will need:
-  - Path: <http://localhost:8080/venues>
-  - Method: Post
-  - Body:
   
-  ```json
+    - Path: <http://localhost:8080/venues>
+    - Method: Post
+    - Body:
+  
+    ```json
   
      {
       "name":"Claude Monet",
@@ -26,8 +27,8 @@ An event booking management system in which you can manage event venues  and boo
       "capacity":10
      }
   
-  ```
-- Response: 201 CREATED, and id new venue. Or 409 CONFLICT if incorrect data was entered.
+    ```
+  - Response: 201 CREATED, and id new venue. Or 409 CONFLICT if incorrect data was entered.
 
 2. Get all venues.
 
@@ -46,11 +47,11 @@ An event booking management system in which you can manage event venues  and boo
 4. Change venue.
 
    To update venue, you will need:
-   - Path: <http://localhost:8080/venues/1>
-   - Method: Post
-   - Body:
+    - Path: <http://localhost:8080/venues/1>
+    - Method: Post
+    - Body:
 
-      ```json
+    ```json
   
      {
       "name":"Conference Hall",
@@ -58,8 +59,8 @@ An event booking management system in which you can manage event venues  and boo
       "capacity":100
      }
   
-  ```
-  - Response: 204 NO_CONTENT. Or 409 CONFLICT if incorrect data was entered.
+   ```
+    - Response: 204 NO_CONTENT. Or 409 CONFLICT if incorrect data was entered.
 
  5. 
 
