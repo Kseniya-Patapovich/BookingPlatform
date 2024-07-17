@@ -30,10 +30,16 @@ public class BookingService {
     }
 
     public List<Booking> getAllByBookingDate(LocalDate date) {
+        if (!bookingRepository.existsAllByBookingDate(date)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found bookings on date " + date);
+        }
         return bookingRepository.findAllByBookingDate(date);
     }
 
     public List<Booking> getAllByVenueId(Long id) {
+        if (!venueRepository.existsById(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found venue with id=" + id);
+        }
         List<Booking> bookings = bookingRepository.findAllByVenueId(id);
         if (bookings.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Venue with id=" + id + " doesn't have any bookings!");

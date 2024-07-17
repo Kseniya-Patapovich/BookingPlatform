@@ -8,4 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface VenueRepository extends JpaRepository<Venue, Long> {
+    boolean existsById(Long id);
 }
