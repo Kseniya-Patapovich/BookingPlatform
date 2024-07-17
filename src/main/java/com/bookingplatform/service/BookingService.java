@@ -29,60 +29,66 @@ public class BookingService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found booking with id=" + id));
     }
 
+    public List<Booking> getAllByBookingDate(LocalDate date) {
+        return bookingRepository.findAllByBookingDate(date);
+    }
+
     public List<Booking> getAllByVenueId(Long id) {
         List<Booking> bookings = bookingRepository.findAllByVenueId(id);
         if (bookings.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Venue doesn't have any bookings!");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Venue with id=" + id + " doesn't have any bookings!");
         }
         return bookings;
     }
 
     @Transactional
     public Long createBooking(BookingDto bookingDto) {
-        Booking client = new Booking();
+        Booking booking = new Booking();
+        validBookingDto(bookingDto);
         Venue venue = getVenue(bookingDto.getVenueId());
-        if (bookingDto.getStartDate().isBefore(LocalDate.now())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Start date cannot be in past!");
-        }
-        if (bookingDto.getEndDate().isBefore(LocalDate.now())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "End date cannot be in past!");
-        }
-        if (bookingDto.getEndDate().isBefore(bookingDto.getStartDate())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "End date cannot be before start date!");
-        }
-        client.setName(bookingDto.getName());
-        client.setStartDate(bookingDto.getStartDate());
-        client.setEndDate(bookingDto.getEndDate());
-        client.setVenue(venue);
-        bookingRepository.save(client);
-        return client.getId();
+        booking.setBookingDate(bookingDto.getBookingDate());
+        booking.setNumberOfParticipants(bookingDto.getNumberOfParticipants());
+        booking.setName(bookingDto.getName());
+        booking.setVenue(venue);
+        bookingRepository.save(booking);
+        return booking.getId();
     }
 
     @Transactional
     public void updateBooking(Long id, BookingDto bookingDto) {
         Booking booking = getBookingById(id);
         Venue venue = getVenue(bookingDto.getVenueId());
-        if (bookingDto.getStartDate().isBefore(LocalDate.now())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Start date cannot be in past!");
-        }
-        if (bookingDto.getEndDate().isBefore(LocalDate.now())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "End date cannot be in past!");
-        }
-        if (bookingDto.getEndDate().isBefore(bookingDto.getStartDate())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "End date cannot be before start date!");
-        }
-        booking.setStartDate(bookingDto.getStartDate());
-        booking.setEndDate(bookingDto.getEndDate());
+        validBookingDto(bookingDto);
+        booking.setBookingDate(bookingDto.getBookingDate());
+        booking.setNumberOfParticipants(bookingDto.getNumberOfParticipants());
         booking.setName(bookingDto.getName());
         booking.setVenue(venue);
         bookingRepository.save(booking);
     }
 
     public void deleteBooking(Long id) {
+        if (!bookingRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found booking with id=" + id);
+        }
         bookingRepository.deleteById(id);
     }
 
     private Venue getVenue(Long id) {
         return venueRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found venue with id=" + id));
+    }
+
+    private void validBookingDto(BookingDto bookingDto) {
+        if (bookingDto.getBookingDate().isBefore(LocalDate.now())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Date cannot be in past!");
+        }
+        if (bookingDto.getNumberOfParticipants() > getVenue(bookingDto.getVenueId()).getCapacity()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Not enough capacity in venue with id=" + bookingDto.getVenueId());
+        }
+        if (bookingRepository.findByBookingDateAndVenueId(bookingDto.getBookingDate(), bookingDto.getVenueId()).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Venue already booked on this date!");
+        }
+        if (bookingDto.getNumberOfParticipants() <= 0) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Incorrect number of participant!");
+        }
     }
 }

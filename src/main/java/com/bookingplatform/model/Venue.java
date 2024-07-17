@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Min;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -31,10 +32,8 @@ public class Venue {
     private String address;
 
     @Column
-    private BigDecimal price;
-
-    @Column
-    private String phone;
+    @Min(1)
+    private Integer capacity;
 
     @OneToMany(mappedBy = "venue", cascade = CascadeType.ALL)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,

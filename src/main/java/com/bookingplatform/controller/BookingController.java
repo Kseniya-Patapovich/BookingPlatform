@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -34,8 +36,13 @@ public class BookingController {
     }
 
     @GetMapping("/venue/{id}")
-    public List<Booking> getAllByVenueId(@PathVariable Long id){
+    public List<Booking> getAllByVenueId(@PathVariable Long id) {
         return bookingService.getAllByVenueId(id);
+    }
+
+    @GetMapping("/date")
+    public List<Booking> getAllByBookingDate(@RequestParam LocalDate bookingDate) {
+        return bookingService.getAllByBookingDate(bookingDate);
     }
 
     @PostMapping
