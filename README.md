@@ -25,7 +25,7 @@ The project includes the following main components:
 - clone repository
   
   ```bash
-  https://github.com/Kseniya-Patapovich/BookingPlatform.git
+  git clone https://github.com/Kseniya-Patapovich/BookingPlatform.git
   cd BookingPlatform
   ```
   
