@@ -1,0 +1,416 @@
+{
+	"info": {
+		"_postman_id": "7e099846-d59f-4671-be70-3b6caff79e14",
+		"name": "BookingPlatform",
+		"description": "An event booking management system in which you can manage event venues and bookings . Multiple bookings can correspond to one venue, which demonstrates the one-to-many attitude.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33622368",
+		"_collection_link": "https://www.postman.com/spaceflight-geologist-70268833/workspace/bookingplatform/collection/33622368-7e099846-d59f-4671-be70-3b6caff79e14?action=share&source=collection_link&creator=33622368"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/venues",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Claude Monet\",\r\n    \"address\": \"Moscow\",\r\n    \"capacity\":100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/venues",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"venues"
+					]
+				},
+				"description": "Create new venue"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/venues",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/venues",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"venues"
+					]
+				},
+				"description": "View all venues"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/venues/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/venues/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"venues",
+						"1"
+					]
+				},
+				"description": "View venue by id"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/venues/1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Cocert Hall\",\r\n    \"address\": \"Moscow\",\r\n    \"capacity\":100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/venues/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"venues",
+						"1"
+					]
+				},
+				"description": "Update venue by id"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/venues/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/venues/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"venues",
+						"1"
+					]
+				},
+				"description": "Check the changes after update"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/venues/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/venues/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"venues",
+						"1"
+					]
+				},
+				"description": "Delete venue by id"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/venues/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/venues/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"venues",
+						"1"
+					]
+				},
+				"description": "Check after deleting venue"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/venues",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Concert Hall\",\r\n    \"address\":\"Minsk\",\r\n    \"capacity\":200\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/venues",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"venues"
+					]
+				},
+				"description": "Create new venue for checking booking api"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bookings",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Alexandr\",\r\n    \"startDate\":\"2024-09-12\",\r\n    \"endDate\":\"2024-09-15\",\r\n    \"numberOfParticipants\":10,\r\n    \"venueId\":2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/bookings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookings"
+					]
+				},
+				"description": "Create new booking"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bookings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bookings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookings"
+					]
+				},
+				"description": "View all bookings"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bookings/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bookings/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookings",
+						"1"
+					]
+				},
+				"description": "View bookig by id if exists"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bookings/venue/2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bookings/venue/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookings",
+						"venue",
+						"2"
+					]
+				},
+				"description": "View booking by venue id"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bookings/date?bookingDate=2024-07-18",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bookings/date?bookingDate=2024-07-18",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookings",
+						"date"
+					],
+					"query": [
+						{
+							"key": "bookingDate",
+							"value": "2024-07-18"
+						}
+					]
+				},
+				"description": "View booking on date"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bookings/1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Svetlana\",\r\n    \"startDate\":\"2024-09-12\",\r\n    \"endDate\":\"2024-09-16\",\r\n    \"numberOfParticipants\":10,\r\n    \"venueId\":2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/bookings/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookings",
+						"1"
+					]
+				},
+				"description": "Update booking"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bookings/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bookings/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookings",
+						"1"
+					]
+				},
+				"description": "Check the changes after updating"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bookings/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bookings/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookings",
+						"1"
+					]
+				},
+				"description": "Delete booking"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/bookings/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/bookings/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bookings",
+						"1"
+					]
+				},
+				"description": "Check after deleting"
+			},
+			"response": []
+		}
+	]
+}
