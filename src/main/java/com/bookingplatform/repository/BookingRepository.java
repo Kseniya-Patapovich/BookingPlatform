@@ -15,6 +15,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     boolean existByBookingDateAndVenueId(LocalDate bookingDate, long venueId);
     List<Booking> findAllByBookingDate(LocalDate bookingDate);
     boolean existsAllByBookingDate(LocalDate bookingDate);
-    @Query(nativeQuery = true, value = "SELECT EXISTS(SELECT 1 FROM booking WHERE venue_id = :venueId AND (:startDate < end_date AND :endDate > start_date) AND (:bookingId IS NULL OR id != :bookingId))")
-    boolean existsByVenueIdAndDateRange(long venueId, LocalDate startDate, LocalDate endDate, Long bookingId);
+    @Query(nativeQuery = true, value = "SELECT EXISTS(SELECT 1 FROM booking WHERE venue_id = :venueId AND (:startDate < end_date AND :endDate > start_date) AND  id != :bookingId)")
+    boolean existsByVenueIdAndDateRangeForUpdate(long venueId, LocalDate startDate, LocalDate endDate, Long bookingId);
+    @Query(nativeQuery = true, value = "SELECT EXISTS(SELECT 1 FROM booking WHERE venue_id = :venueId AND (:startDate < end_date AND :endDate > start_date))")
+    boolean existsByVenueIdAndAndBookingDateForCreate(long venueId, LocalDate startDate, LocalDate endDate);
 }

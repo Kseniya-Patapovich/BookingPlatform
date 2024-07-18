@@ -47,7 +47,7 @@ public class BookingService {
     public Long createBooking(BookingDto bookingDto) {
         Booking booking = new Booking();
         Venue venue = getVenue(bookingDto.getVenueId());
-        validBookingDto(bookingDto, venue.getCapacity(), null);
+        validateForCreate(bookingDto, venue.getCapacity());
         booking.setStartDate(bookingDto.getStartDate());
         booking.setEndDate(bookingDto.getEndDate());
         booking.setNumberOfParticipants(bookingDto.getNumberOfParticipants());
@@ -61,7 +61,7 @@ public class BookingService {
     public void updateBooking(Long id, BookingDto bookingDto) {
         Booking booking = getBookingById(id);
         Venue venue = getVenue(bookingDto.getVenueId());
-        validBookingDto(bookingDto, venue.getCapacity(), id);
+        validateForUpdate(bookingDto, venue.getCapacity(), id);
         booking.setBookingDate(LocalDate.now());
         booking.setStartDate(bookingDto.getStartDate());
         booking.setEndDate(bookingDto.getEndDate());
@@ -82,7 +82,7 @@ public class BookingService {
         return venueRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found venue with id=" + id));
     }
 
-    private void validBookingDto(BookingDto bookingDto, int venueCapacity, Long bookingId) {
+    private void validBookingDto(BookingDto bookingDto, int venueCapacity) {
         if (bookingDto.getEndDate().isBefore(LocalDate.now())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "End date cannot be in past!");
         }
@@ -101,7 +101,19 @@ public class BookingService {
         if (!venueRepository.existsById(bookingDto.getVenueId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found venue with id=" + bookingDto.getVenueId());
         }
-        if (bookingRepository.existsByVenueIdAndDateRange(bookingDto.getVenueId(), bookingDto.getStartDate(), bookingDto.getEndDate(), bookingId)) {
+
+    }
+
+    private void validateForCreate(BookingDto bookingDto, int capacity) {
+        validBookingDto(bookingDto, capacity);
+        if (bookingRepository.existsByVenueIdAndAndBookingDateForCreate(bookingDto.getVenueId(), bookingDto.getStartDate(), bookingDto.getEndDate())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Venue already booked on this date!");
+        }
+    }
+
+    private void validateForUpdate(BookingDto bookingDto, int capacity, Long bookingId){
+        validBookingDto(bookingDto,capacity);
+        if (bookingRepository.existsByVenueIdAndDateRangeForUpdate(bookingDto.getVenueId(), bookingDto.getStartDate(), bookingDto.getEndDate(), bookingId)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Venue already booked on this date!");
         }
     }
