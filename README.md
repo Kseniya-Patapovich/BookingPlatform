@@ -1,17 +1,46 @@
 # BookingPlatform
 
-### Task description
+## Task description
 An event booking management system in which you can manage event venues  and bookings . Multiple bookings can correspond to one venue, which demonstrates the one-to-many attitude.
 
-### Technologies:
-- Spring Boot
-- Maven
-- Postgres
-- Spring Data Jpa
-- Postman
+## Technologies:
+The project uses the following dependencies:
+- **Spring Boot**: the main platform for creating an application
+- **Spring Data JPA**: for working with the database
+- **PostgreSQL**: database for data storage
+- **Hibernate**: for ORM
+- **Lombok**: to reduce boilerplate code
+- **Validation**: for validating input data
+- **Jackson**: for JSON serialization and deserialization
+- **Flyaway**: for managing database migrations
 
-### Capabilities:
-#### Venue - entity for managing event venues
+## Project structure
+The project includes the following main components:
+- Entity `Venue' (venue)
+- Entity `Booking' (booking)
+- REST API for managing bookings and venues
+
+## How to run the application:
+- clone repository
+  
+  ```bash
+  https://github.com/Kseniya-Patapovich/BookingPlatform.git
+  cd BookingPlatform
+  ```
+- Edit the `src/main/resources/application.properties` file to specify the connection settings for your PostgreSQL database. Replace the `spring.datasource.url`, `spring.datasource.username` and `spring.datasource.password` parameters with the corresponding values of your local or remote database.
+- building an application
+
+  ```bash
+  mvn clean install
+  ```
+- run the application
+
+  ```bash
+  mvn spring-boot:run
+  ```
+  
+## Endpoints:
+### Venue
 1. Create new venue.  
    - Path: <http://localhost:8080/venues>
    - Method: Post
@@ -63,7 +92,7 @@ An event booking management system in which you can manage event venues  and boo
     - Method: Delete
     - Response: 204 NO_CONTENT. Or 404 NOT_FOUND if venue with this id not found. Also you cannot delete venue with booking.
 
-#### Booking - entity for managing bookings.
+### Booking 
 1. Create new booking.
    - Path: <http://localhost:8080/booking>
    - Method: Post
@@ -73,7 +102,8 @@ An event booking management system in which you can manage event venues  and boo
      {
       "name":"Pavel",
       "numberOfParticipants":1000,
-      "bookingDate":"2024-10-01",
+      "startDate":"2024-09-04",
+      "endDate":"2024-09-08",
       "venueId":1
      }
      ```
@@ -108,7 +138,8 @@ An event booking management system in which you can manage event venues  and boo
      {
       "name":"Svetlana",
       "numberOfParticipants":100,
-      "bookingDate":"2024-10-03",
+      "startDate":"2024-09-04",
+      "endDate":"2024-09-08",
       "venueId":1
      }
      ```
@@ -118,4 +149,6 @@ An event booking management system in which you can manage event venues  and boo
    - Path: <http://localhost:8080/booking/1>
    - Method: Delete
    - Response: 204 NO_CONTENT. Or 404 NOT_FOUND if venue with this id not found.
+
+
    
