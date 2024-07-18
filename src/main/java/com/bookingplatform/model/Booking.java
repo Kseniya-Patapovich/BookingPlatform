@@ -28,21 +28,20 @@ public class Booking {
     @Column(nullable = false)
     private String name;
 
-    /*@Column(nullable = false)
+    @Column(nullable = false)
     @FutureOrPresent
     private LocalDate startDate;
 
     @Column(nullable = false)
     @FutureOrPresent
-    private LocalDate endDate;*/
+    private LocalDate endDate;
 
     @Column(nullable = false)
     @Min(1)
     private Integer numberOfParticipants;
 
     @Column(nullable = false)
-    @FutureOrPresent
-    private LocalDate bookingDate;
+    private LocalDate bookingDate = LocalDate.now();
 
     @ManyToOne
     @JoinColumn(name = "venue_id")

@@ -10,15 +10,12 @@ import java.time.LocalDate;
 public class BookingDto {
     @NotNull
     private String name;
-    /*@FutureOrPresent
+    @FutureOrPresent
     private LocalDate startDate;
     @FutureOrPresent
-    private LocalDate endDate;*/
+    private LocalDate endDate;
     @NotNull
     private Integer numberOfParticipants;
-    @NotNull
-    @FutureOrPresent
-    private LocalDate bookingDate;
     @NotNull
     private Long venueId;
 }
