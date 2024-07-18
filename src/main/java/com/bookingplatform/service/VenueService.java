@@ -54,9 +54,6 @@ public class VenueService {
         if (!deleteVenue.getBookings().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "You cannot delete a venue if there is a booking on it!");
         }
-        if (!venueRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found venue with id=" + id);
-        }
         venueRepository.delete(deleteVenue);
     }
 }

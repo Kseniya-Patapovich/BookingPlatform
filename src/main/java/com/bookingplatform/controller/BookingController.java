@@ -20,7 +20,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/booking")
+@RequestMapping("/bookings")
 @RequiredArgsConstructor
 public class BookingController {
     private final BookingService bookingService;
