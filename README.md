@@ -14,6 +14,7 @@ The project uses the following dependencies:
 - **Jackson**: for JSON serialization and deserialization
 - **Flyaway**: for managing database migrations
 - **Docker Compose**: for running application
+- **Postman**
 
 ## Project structure
 The project includes the following main components:
