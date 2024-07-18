@@ -13,6 +13,7 @@ The project uses the following dependencies:
 - **Validation**: for validating input data
 - **Jackson**: for JSON serialization and deserialization
 - **Flyaway**: for managing database migrations
+- **Docker Compose**: for running application
 
 ## Project structure
 The project includes the following main components:
@@ -27,16 +28,14 @@ The project includes the following main components:
   https://github.com/Kseniya-Patapovich/BookingPlatform.git
   cd BookingPlatform
   ```
-- Edit the `src/main/resources/application.properties` file to specify the connection settings for your PostgreSQL database. Replace the `spring.datasource.url`, `spring.datasource.username` and `spring.datasource.password` parameters with the corresponding values of your local or remote database.
-- building an application
+  
+- building and launching containers:
 
   ```bash
-  mvn clean install
+  docker-compose build
   ```
-- run the application
-
   ```bash
-  mvn spring-boot:run
+  docker-compose up
   ```
   
 ## Endpoints:
