@@ -35,7 +35,7 @@ The project includes the following main components:
   docker-compose build
   ```
   ```bash
-  docker-compose up
+  docker-compose up -d
   ```
   
 ## Endpoints:
